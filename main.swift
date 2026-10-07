@@ -1,15 +1,12 @@
 import AppKit
 import CoreAudio
 
-let chatGPTBundleID = "com.openai.codex"
 let spotifyBundleID = "com.spotify.client"
 
-func chatGPTRecording() throws -> Bool {
+func dictationRecording() throws -> Bool {
     for process in try AudioHardwareSystem.shared.processes {
         let id = try process.bundleID ?? ""
-        if id == chatGPTBundleID || id.hasPrefix(chatGPTBundleID + ".") {
-            if try process.isRunningInput { return true }
-        }
+        if isDictationApp(id), try process.isRunningInput { return true }
     }
     return false
 }
@@ -71,7 +68,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func tick() {
         guard enabled.state == .on else { return }
-        let active = try? chatGPTRecording()
+        let active = try? dictationRecording()
         let transition = gate.update(active, at: ProcessInfo.processInfo.systemUptime)
         guard let active else {
             setStatus("Waiting for microphone status")
@@ -98,7 +95,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 try restore()
             }
             setStatus(paused != nil ? "Spotify paused for dictation"
-                : active ? "ChatGPT is using the microphone" : "Ready")
+                : active ? "Dictation app is using the microphone" : "Ready")
         } catch {
             // Stop retrying a denied Apple Event every polling interval.
             enabled.state = .off
@@ -151,7 +148,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 if CommandLine.arguments.contains("--diagnose") {
     // Read flags only. This mode never sends Apple Events or opens an input device.
     do {
-        print("ChatGPT microphone active: \(try chatGPTRecording())")
+        print("Supported app microphone active: \(try dictationRecording())")
     } catch {
         fputs("Microphone status unavailable: \(error.localizedDescription)\n", stderr)
         exit(1)

@@ -1,22 +1,22 @@
 # Dictation Pause
 
 A tiny, free macOS menu bar app that pauses Spotify while you dictate in the
-ChatGPT desktop app, then resumes the music it paused.
+ChatGPT or Claude desktop app, then resumes the music it paused.
 
 About 200 lines of Swift. No dependencies, subscriptions, network requests,
 audio recording, updater, or playback history.
 
-**Compatibility:** macOS 15+, Spotify desktop, and the ChatGPT/Codex desktop app
-using the `com.openai.codex` bundle identifier. Other ChatGPT distributions with
-a different identifier are not currently supported. The download is universal
-for Apple Silicon and Intel Macs.
+**Compatibility:** macOS 15+, Spotify desktop, and ChatGPT/Codex
+(`com.openai.codex`) or Claude desktop (`com.anthropic.claudefordesktop`).
+Other distributions with different identifiers are not currently supported.
+The download is universal for Apple Silicon and Intel Macs.
 
 ## Install
 
 1. [Download the latest release](https://github.com/that-guy-wade/dictation-pause/releases/latest)
    and extract the ZIP.
 2. Move **Dictation Pause.app** to Applications and open it.
-3. Play Spotify and start dictation in ChatGPT. When macOS asks whether
+3. Play Spotify and start dictation in ChatGPT or Claude. When macOS asks whether
    Dictation Pause may control Spotify, choose **Allow**.
 
 The pause-circle icon in the menu bar shows status and lets you disable the app
@@ -57,8 +57,9 @@ microphone flag without controlling Spotify:
 - Only **Spotify Automation** permission is needed. The app reads CoreAudio's
   process input-use flag without opening the microphone or reading audio samples.
   It needs no Microphone, Accessibility, or Screen Recording permission.
-- It detects `com.openai.codex` and its helper processes. Voice chats and
-  microphone use in other windows of that app also trigger it; other apps do not.
+- It detects ChatGPT/Codex, Claude desktop, and their helper processes. Voice chats
+  and microphone use in other windows of those apps also trigger it. Music stays
+  paused while either supported app is using the microphone.
 - It restores playback only if Spotify is still paused on the same process,
   track, and position. Initially paused music stays paused. Disabling or quitting
   also restores an unchanged pause it owns.
@@ -73,8 +74,10 @@ microphone flag without controlling Spotify:
 ## Verification
 
 Live Spotify pause/resume was confirmed on an Apple Silicon Mac running macOS
-26.2. The microphone transition tests cover immediate start, repeated readings,
-brief idle gaps, query failures, and confirmed stop. The embedded Spotify scripts
+26.2. Claude's app and helper identifiers were verified from the installed app;
+live Claude dictation has not been tested. Tests cover both apps' identifiers,
+overlapping use, immediate start, repeated readings, brief idle gaps, query
+failures, and confirmed stop. The embedded Spotify scripts
 also passed simulated checks for paused music, track changes, and seeking.
 Intel and older macOS versions have not been tested live.
 

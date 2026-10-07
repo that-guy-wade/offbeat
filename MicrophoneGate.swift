@@ -1,3 +1,9 @@
+func isDictationApp(_ bundleID: String) -> Bool {
+    ["com.openai.codex", "com.anthropic.claudefordesktop"].contains {
+        bundleID == $0 || bundleID.hasPrefix($0 + ".")
+    }
+}
+
 // Require continuous idle readings before restoring music. A failed reading
 // cannot masquerade as the microphone being switched off.
 struct MicrophoneGate {
