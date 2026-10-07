@@ -73,9 +73,9 @@ microphone flag without controlling Spotify:
 
 ## Verification
 
-Live Spotify pause/resume was confirmed on an Apple Silicon Mac running macOS
-26.2. Claude's app and helper identifiers were verified from the installed app;
-live Claude dictation has not been tested. Tests cover both apps' identifiers,
+Live Spotify pause/resume was confirmed with both ChatGPT/Codex and Claude
+desktop on an Apple Silicon Mac running macOS 26.2. Claude's app and helper
+identifiers were verified from the installed app. Tests cover both apps' identifiers,
 overlapping use, immediate start, repeated readings, brief idle gaps, query
 failures, and confirmed stop. The embedded Spotify scripts
 also passed simulated checks for paused music, track changes, and seeking.
