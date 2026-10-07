@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 cd "$(dirname "$0")"
-app=${1:-"Dictation Pause.app"}
+app=${1:-"Offbeat.app"}
 build_tmp=$(mktemp -d)
 trap 'rm -rf "$build_tmp"' EXIT
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
@@ -10,7 +10,7 @@ for arch in arm64 x86_64; do
         -o "$build_tmp/$arch" || exit 1
 done
 xcrun lipo -create "$build_tmp/arm64" "$build_tmp/x86_64" \
-    -output "$app/Contents/MacOS/DictationPause" || exit 1
+    -output "$app/Contents/MacOS/Offbeat" || exit 1
 cp Info.plist "$app/Contents/Info.plist"
 cp LICENSE "$app/Contents/Resources/LICENSE"
 codesign --force --sign - "$app" || exit 1

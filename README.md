@@ -1,4 +1,4 @@
-# Dictation Pause
+# Offbeat
 
 A tiny, free macOS menu bar app that pauses Spotify while you dictate in the
 ChatGPT or Claude desktop app, then resumes the music it paused.
@@ -13,11 +13,11 @@ The download is universal for Apple Silicon and Intel Macs.
 
 ## Install
 
-1. [Download the latest release](https://github.com/that-guy-wade/dictation-pause/releases/latest)
+1. [Download the latest release](https://github.com/that-guy-wade/offbeat/releases/latest)
    and extract the ZIP.
-2. Move **Dictation Pause.app** to Applications and open it.
+2. Move **Offbeat.app** to Applications and open it.
 3. Play Spotify and start dictation in ChatGPT or Claude. When macOS asks whether
-   Dictation Pause may control Spotify, choose **Allow**.
+   Offbeat may control Spotify, choose **Allow**.
 
 The pause-circle icon in the menu bar shows status and lets you disable the app
 or quit. It checks microphone activity every 0.25 seconds and waits at least
@@ -38,18 +38,18 @@ Requires Apple's Command Line Tools or Xcode with a macOS 15+ SDK and its Swift
 CoreAudio overlay. No package manager or network access is used by these scripts.
 
 ```sh
-git clone https://github.com/that-guy-wade/dictation-pause.git
-cd dictation-pause
+git clone https://github.com/that-guy-wade/offbeat.git
+cd offbeat
 bash test.sh
 bash build.sh
-open "Dictation Pause.app"
+open "Offbeat.app"
 ```
 
 The build produces a universal app for Apple Silicon and Intel. To read the
 microphone flag without controlling Spotify:
 
 ```sh
-"Dictation Pause.app/Contents/MacOS/DictationPause" --diagnose
+"Offbeat.app/Contents/MacOS/Offbeat" --diagnose
 ```
 
 ## Behavior and permissions

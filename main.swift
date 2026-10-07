@@ -47,7 +47,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         enabled.state = .on
         menu.addItem(enabled)
         menu.addItem(.separator())
-        let quit = NSMenuItem(title: "Quit Dictation Pause", action: #selector(quit), keyEquivalent: "q")
+        let quit = NSMenuItem(title: "Quit Offbeat", action: #selector(quit), keyEquivalent: "q")
         quit.target = self
         menu.addItem(quit)
         statusItem.menu = menu
@@ -62,8 +62,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         guard status.title != text || statusItem.button?.image == nil else { return }
         status.title = text
         statusItem.button?.image = NSImage(systemSymbolName: paused == nil ? "pause.circle" : "mic.fill",
-                                          accessibilityDescription: "Dictation Pause")
-        statusItem.button?.toolTip = "Dictation Pause: " + text
+                                          accessibilityDescription: "Offbeat")
+        statusItem.button?.toolTip = "Offbeat: " + text
     }
 
     private func tick() {
