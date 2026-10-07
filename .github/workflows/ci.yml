@@ -1,0 +1,13 @@
+name: Build and test
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: macos-26
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - run: bash test.sh
+      - run: bash build.sh
+      - run: xcrun lipo "Dictation Pause.app/Contents/MacOS/DictationPause" -verify_arch arm64 x86_64
